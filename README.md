@@ -1,8 +1,8 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# Tiny Demoscene VGA (Tiny Tapeout)
 
-- [Read the documentation for project](docs/info.md)
+- [Project datasheet](docs/info.md)
 
 ## What is Tiny Tapeout?
 
@@ -10,12 +10,40 @@ Tiny Tapeout is an educational project that aims to make it easier and cheaper t
 
 To learn more and get started, visit https://tinytapeout.com.
 
-## Set up your Verilog project
+## What this project is
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+This design outputs a 640×480 VGA demo scene featuring three 128×128 “DVD-style” bouncing logos over a parallax checkerboard background. Optional effects include ripple warping/tinting and color cycling on bounces.
+
+The top module is `tt_um_vga_sharc_demo` in `src/project.v`.
+
+## Inputs and controls
+
+- `ui_in[0]`: Enable checkerboard background
+- `ui_in[1]`: Enable ripple warp + ring tint
+- `ui_in[2]`: Enable color cycling on logo bounces
+- `ui_in[5:0]`: Base checkerboard color when background is enabled
+
+## Outputs
+
+`uo_out` packs VGA sync and 2‑bit RGB channels:
+
+`{hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]}`
+
+## How it works (high level)
+
+- `hvsync_generator.v` provides VGA timing and pixel coordinates.
+- `bitmap_rom.v` stores a 128×128 monochrome logo.
+- `palette.v` maps 3‑bit color indices to 2‑bit-per‑channel RGB.
+- `project.v` composites three logos over the animated background and updates motion once per frame.
+
+## How to test
+
+The cocotb testbench renders a few frames and optionally compares against reference images.
+
+```zsh
+cd /Users/macbook/chip_dev/sharc/sharc_ip/tiny-demoscene/test
+make -B
+```
 
 The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
 
@@ -31,12 +59,7 @@ The GitHub action will automatically build the ASIC files using [LibreLane](http
 - [Join the community](https://tinytapeout.com/discord)
 - [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
 
-## What next?
+## Resources
 
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+- [Tiny Tapeout documentation](https://tinytapeout.com)
+- [Testing guide](https://tinytapeout.com/hdl/testing/)
