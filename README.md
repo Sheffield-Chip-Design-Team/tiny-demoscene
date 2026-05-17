@@ -1,6 +1,6 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Demoscene VGA (Tiny Tapeout)
+# Tiny SHaRC Demo 
 
 <img width="1258" height="942" alt="image" src="https://github.com/user-attachments/assets/74638e19-93c6-46f1-9219-42639bcd0f27" />
 
@@ -50,9 +50,6 @@ make -B
 
 The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
 
-## Enable GitHub actions to build the results page
-
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
 
 ## Resources
 
@@ -62,7 +59,4 @@ The GitHub action will automatically build the ASIC files using [LibreLane](http
 - [Join the community](https://tinytapeout.com/discord)
 - [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
 
-## Resources
-
-- [Tiny Tapeout documentation](https://tinytapeout.com)
-- [Testing guide](https://tinytapeout.com/hdl/testing/)
+Special thanks to Matt Venn and the TT team for making this chip possible!
