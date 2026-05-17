@@ -4,7 +4,6 @@
 
 <img width="1258" height="942" alt="image" src="https://github.com/user-attachments/assets/74638e19-93c6-46f1-9219-42639bcd0f27" />
 
-
 - [Project datasheet](docs/info.md)
 
 ## What is Tiny Tapeout?
